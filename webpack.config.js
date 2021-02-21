@@ -68,7 +68,7 @@ module.exports = () => {
     plugins: [
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: 'style.css',
+        filename: 'styles.css',
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, './src/html/index.html'),
@@ -77,9 +77,8 @@ module.exports = () => {
       }),
       new CopyPlugin({
         patterns: [
-          // { from: 'src/assets/images', to: 'assets/images' },
           { from: 'src/assets/icons', to: 'assets/icons' },
-          // { from: 'src/assets/sounds', to: 'assets/sounds' },
+          { from: 'src/assets/sounds', to: 'assets/sounds' },
         ],
       }),
       new RemovePlugin({
