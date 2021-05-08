@@ -1,3 +1,13 @@
+$key: #d4d7db;
+$key-hover: #f3f3f3;
+
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
 @import './style';
 @import './switch';
 @import './dark-theme';
