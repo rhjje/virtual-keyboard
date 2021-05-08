@@ -1,3 +1,6 @@
+import MainKey from './components/mainKey';
+import SideKey from './components/sideKey';
+
 const textarea = document.querySelector('.textarea');
 const main = document.querySelector('.main');
 
@@ -94,41 +97,20 @@ const createKeyboard = () => {
 
     for (let j = 0; j < sideKeys[i].length; j += 1) {
       if (sideKeys[i][j].length === 1) {
-        const key = document.createElement('div');
-        key.classList.add('key');
-
-        const spanSide = document.createElement('span');
-        spanSide.classList.add('side-key');
-
-        const spanMain = document.createElement('span');
-        spanMain.classList.add('main-key');
-
-        const spanSideRus = document.createElement('span');
-        spanSideRus.classList.add('side-key-rus', 'disabled');
-
-        const spanMainRus = document.createElement('span');
-        spanMainRus.classList.add('main-key-rus', 'disabled');
-
-        spanSide.innerText = sideKeys[i][j];
-        spanMain.innerText = mainKeys[i][j];
-        spanSideRus.innerText = sideKeysRus[i][j];
-        spanMainRus.innerText = mainKeysRus[i][j];
-
-        key.appendChild(spanSide);
-        key.appendChild(spanMain);
-        key.appendChild(spanSideRus);
-        key.appendChild(spanMainRus);
-
-        row.appendChild(key);
+        const key = new MainKey(mainKeys[i][j], sideKeys[i][j],
+          mainKeysRus[i][j], sideKeysRus[i][j]);
+        row.innerHTML += key.render();
+      } else if (sideKeys[i][j] === 'Win') {
+        const key = `
+          <div class="key win">
+            <span>Win</span>
+            <span class="language-side">Ru</span>
+            <span class="language">En</span>
+          </div>`;
+        row.innerHTML += key;
       } else {
-        const key = document.createElement('div');
-        key.classList.add('key');
-        key.classList.add(`${sideKeys[i][j].toLowerCase()}`);
-        const span = document.createElement('span');
-
-        span.innerText = sideKeys[i][j];
-        key.appendChild(span);
-        row.appendChild(key);
+        const key = new SideKey(sideKeys[i][j]);
+        row.innerHTML += key.render();
       }
     }
     keyboard.appendChild(row);
@@ -138,25 +120,6 @@ const createKeyboard = () => {
 };
 
 createKeyboard();
-
-// create change language button
-
-const buttonLanguage = document.querySelector('.key.win');
-
-const createLanguageButton = () => {
-  const spanRus = document.createElement('span');
-  spanRus.classList.add('language-side');
-  spanRus.innerText = 'Ru';
-
-  const span = document.createElement('span');
-  span.classList.add('language');
-  span.innerText = 'En';
-
-  buttonLanguage.appendChild(spanRus);
-  buttonLanguage.appendChild(span);
-};
-
-createLanguageButton();
 
 let shiftActive = false;
 let languageEnglish = true;
