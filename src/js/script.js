@@ -1,289 +1,16 @@
-import MainKey from './components/mainKey';
-import SideKey from './components/sideKey';
+export const textarea = document.querySelector('.textarea');
+export const keys = document.querySelectorAll('.key');
 
-const textarea = document.querySelector('.textarea');
-const main = document.querySelector('.main');
-
-// sound keyboard
-
-const audioSimple = document.createElement('audio');
-const sourceSimple = document.createElement('source');
-sourceSimple.src = 'assets/sounds/simple.wav';
-audioSimple.appendChild(sourceSimple);
-
-const audio = document.createElement('audio');
-const source = document.createElement('source');
-source.src = 'assets/sounds/key.wav';
-audio.appendChild(source);
-
-const audioSimpleRus = document.createElement('audio');
-const sourceSimpleRus = document.createElement('source');
-sourceSimpleRus.src = 'assets/sounds/key-simple-rus.wav';
-audioSimpleRus.appendChild(sourceSimpleRus);
-
-const audioRus = document.createElement('audio');
-const sourceRus = document.createElement('source');
-sourceRus.src = 'assets/sounds/key-rus.wav';
-audioRus.appendChild(sourceRus);
-
-let soundTurn = true;
-
-const soundButton = document.querySelector('.sound > img');
-soundButton.addEventListener('click', () => {
-  if (soundButton.classList.contains('off')) {
-    soundButton.src = 'assets/icons/volume.svg';
-    soundButton.classList.remove('off');
-    soundTurn = true;
-  } else {
-    soundButton.src = 'assets/icons/volume-off.svg';
-    soundButton.classList.add('off');
-    soundTurn = false;
-  }
-});
-
-const sideKeys = [
-  ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '|', 'Backspace'],
-  ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'Delete'],
-  ['CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'Enter'],
-  ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 'Up', 'Shift'],
-  ['Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Left', 'Down', 'Right', 'Ctrl'],
-];
-
-const mainKeys = [
-  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\\', null],
-  [null, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', null],
-  [null, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', null],
-  [null, 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', null],
-];
-
-const sideKeysRus = [
-  ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', '/', null],
-  [null, 'Й', 'Ц', 'У', 'К', 'Е', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', null],
-  [null, 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', null],
-  [null, 'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', null],
-];
-
-const mainKeysRus = [
-  ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\\', null],
-  [null, 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', null],
-  [null, 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', null],
-  [null, 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', null],
-];
-
-const createKeyboard = () => {
-  const keyboard = document.createElement('div');
-  keyboard.classList.add('keyboard', 'keyboard-off');
-  for (let i = 0; i < sideKeys.length; i += 1) {
-    const row = document.createElement('div');
-    switch (i) {
-      case 0:
-        row.classList.add('keyboard__row-first');
-        break;
-      case 1:
-        row.classList.add('keyboard__row-second');
-        break;
-      case 2:
-        row.classList.add('keyboard__row-third');
-        break;
-      case 3:
-        row.classList.add('keyboard__row-fourth');
-        break;
-      case 4:
-        row.classList.add('keyboard__row-fifth');
-        break;
-      default:
-        break;
-    }
-
-    for (let j = 0; j < sideKeys[i].length; j += 1) {
-      if (sideKeys[i][j].length === 1) {
-        const key = new MainKey(mainKeys[i][j], sideKeys[i][j],
-          mainKeysRus[i][j], sideKeysRus[i][j]);
-        row.innerHTML += key.render();
-      } else if (sideKeys[i][j] === 'Win') {
-        const key = `
-          <div class="key win">
-            <span>Win</span>
-            <span class="language-side">Ru</span>
-            <span class="language">En</span>
-          </div>`;
-        row.innerHTML += key;
-      } else {
-        const key = new SideKey(sideKeys[i][j]);
-        row.innerHTML += key.render();
-      }
-    }
-    keyboard.appendChild(row);
-  }
-
-  main.appendChild(keyboard);
+export const state = {
+  sound: true,
+  shift: false,
+  englishLayout: true,
 };
 
-createKeyboard();
-
-let shiftActive = false;
-let languageEnglish = true;
-const capslock = document.querySelector('.key.capslock');
-const keyShift = document.querySelector('.key.shift');
-
-const keys = document.querySelectorAll('.key');
-
-keys.forEach((key) => {
-  key.addEventListener('click', (event) => {
-    switch (event.target.innerText) {
-      case 'Ru':
-      case 'En':
-      case 'Win':
-        if (soundTurn) {
-          audioRus.play();
-        }
-        changeLanguage();
-        if (languageEnglish) {
-          languageEnglish = false;
-        } else {
-          languageEnglish = true;
-        }
-        break;
-      case 'Tab':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        textarea.setRangeText('    ', textarea.selectionStart, textarea.selectionEnd, "end");
-        textarea.focus();
-        break;
-      case 'Backspace':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        backspace();
-        break;
-      case 'Delete':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        deleteButton();
-        break;
-      case 'CapsLock':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        shift();
-        capslock.classList.toggle('active');
-        break;
-      case 'Enter':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, "end");
-        textarea.focus();
-        break;
-      case 'Shift':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        shift();
-        keys[42].classList.toggle('active');
-        keys[54].classList.toggle('active');
-        if (keys[42].classList.contains('active') && keys[54].classList.contains('active')) {
-          shiftActive = true;
-        } else {
-          shiftActive = false;
-        }
-        break;
-      case 'Ctrl':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        break;
-      case 'Alt':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        break;
-      case 'Space':
-        if (languageEnglish && soundTurn) {
-          audioSimple.play();
-        } else if (soundTurn) {
-          audioSimpleRus.play();
-        }
-        textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, "end");
-        textarea.focus();
-        break;
-      case 'Left':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        left();
-        break;
-      case 'Right':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        right();
-        break;
-      case 'Up':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        up();
-        break;
-      case 'Down':
-        if (languageEnglish && soundTurn) {
-          audio.play();
-        } else if (soundTurn) {
-          audioRus.play();
-        }
-        down();
-        break;
-      default:
-        if (languageEnglish) {
-          if (soundTurn) {
-            audioSimple.play();
-          }
-          const span = key.querySelector('.main-key');
-          textarea.setRangeText(span.innerText, textarea.selectionStart, textarea.selectionEnd, 'end');
-          textarea.focus();
-        } else {
-          if (soundTurn) {
-            audioSimpleRus.play();
-          }
-          const span = key.querySelector('.main-key-rus');
-          textarea.setRangeText(span.innerText, textarea.selectionStart, textarea.selectionEnd, 'end');
-          textarea.focus();
-        }
-
-        if (shiftActive) {
-          shift();
-          shiftActive = false;
-          keys[42].classList.toggle('active');
-          keys[54].classList.toggle('active');
-        }
-        break;
-    }
-  });
-});
+const audioSimple = new Audio('assets/sounds/simple.wav');
+const audio = new Audio('assets/sounds/key.wav');
+const audioSimpleRus = new Audio('assets/sounds/key-simple-rus.wav');
+const audioRus = new Audio('assets/sounds/key-rus.wav');
 
 const changeLanguage = () => {
   const sideKeys = document.querySelectorAll('.side-key');
@@ -293,15 +20,18 @@ const changeLanguage = () => {
 
   const language = document.querySelector('.language');
   const languageSide = document.querySelector('.language-side');
-  const temp = language.innerText;
-  language.innerText = languageSide.innerText;
-  languageSide.innerText = temp;
+  [language.innerText, languageSide.innerText] = [languageSide.innerText, language.innerText];
 
   for (let i = 0; i < sideKeys.length; i += 1) {
     sideKeys[i].classList.toggle('disabled');
     mainKeys[i].classList.toggle('disabled');
     sideKeysRus[i].classList.toggle('disabled');
     mainKeysRus[i].classList.toggle('disabled');
+  }
+  if (state.englishLayout) {
+    state.englishLayout = false;
+  } else {
+    state.englishLayout = true;
   }
 };
 
@@ -333,25 +63,30 @@ const deleteButton = () => {
   }
 };
 
-const shift = () => {
-  const keys = document.querySelectorAll('.key');
-  keys.forEach((key) => {
+const changeCase = () => {
+  const keysAll = document.querySelectorAll('.key');
+  keysAll.forEach((key) => {
     if (key.querySelector('.side-key')) {
       const sideKey = key.querySelector('.side-key');
       const mainKey = key.querySelector('.main-key');
       const sideKeyRus = key.querySelector('.side-key-rus');
       const mainKeyRus = key.querySelector('.main-key-rus');
 
-      const temp = mainKey.innerHTML;
-      const tempRus = mainKeyRus.innerHTML;
-
-      mainKey.innerHTML = sideKey.innerHTML;
-      sideKey.innerHTML = temp;
-
-      mainKeyRus.innerHTML = sideKeyRus.innerHTML;
-      sideKeyRus.innerHTML = tempRus;
+      [mainKey.innerHTML, sideKey.innerHTML] = [sideKey.innerHTML, mainKey.innerHTML];
+      [mainKeyRus.innerHTML, sideKeyRus.innerHTML] = [sideKeyRus.innerHTML, mainKeyRus.innerHTML];
     }
   });
+};
+
+const shift = () => {
+  const keysAll = document.querySelectorAll('.key');
+  keysAll[42].classList.toggle('active');
+  keysAll[54].classList.toggle('active');
+  if (keysAll[42].classList.contains('active') && keysAll[54].classList.contains('active')) {
+    state.shift = true;
+  } else {
+    state.shift = false;
+  }
 };
 
 const left = () => {
@@ -400,67 +135,112 @@ const down = () => {
   }
 };
 
-// add real keyboard
+const setSpace = (space) => {
+  textarea.setRangeText(`${space}`, textarea.selectionStart, textarea.selectionEnd, 'end');
+  textarea.focus();
+};
 
-const keysKeyCode = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 220,
-  8, 9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 46, 20, 65, 83, 68,
-  70, 71, 72, 74, 75, 76, 186, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188,
-  190, 191, 38, 16, 17, null, 18, 32, 18, 37, 40, 39, 17];
+const writeLetter = (char) => {
+  textarea.setRangeText(char, textarea.selectionStart, textarea.selectionEnd, 'end');
+  textarea.focus();
+};
 
-textarea.addEventListener('keydown', (event) => {
-  for (let i = 0; i < keysKeyCode.length; i += 1) {
-    if (event.keyCode === keysKeyCode[i] && (i === 42 || i === 55 || i === 57)
-    && event.location === 1) {
-      keys[i].classList.add('active');
-      break;
-    } else if (event.keyCode === keysKeyCode[i] && (i === 54 || i === 59 || i === 63)
-    && event.location === 2) {
-      keys[i].classList.add('active');
-      break;
-    } else if (event.keyCode === keysKeyCode[i] && event.location === 0) {
-      keys[i].classList.add('active');
-    }
-  }
-});
-
-textarea.addEventListener('keyup', (event) => {
-  for (let i = 0; i < keysKeyCode.length; i += 1) {
-    if (event.keyCode === keysKeyCode[i]) {
-      keys[i].classList.remove('active');
-    }
-  }
-});
-
-// turn on keyboard
-
-const keyboard = document.querySelector('.keyboard');
-
-document.querySelector('input[type=checkbox]').addEventListener('change', (event) => {
-  if (event.target.checked) {
-    keyboard.classList.remove('keyboard-off');
+const playSound = () => {
+  if (state.englishLayout) {
+    audioSimple.play();
   } else {
-    keyboard.classList.add('keyboard-off');
+    audioSimpleRus.play();
   }
-});
+};
 
-// add modal window
+const playSpecialSound = () => {
+  if (state.englishLayout) {
+    audio.play();
+  } else {
+    audioRus.play();
+  }
+};
 
-const modalWindowButton = document.querySelector('div.info > img');
-const modalWindow = document.querySelector('.info-modal');
-const modalWindowBackground = document.querySelector('.modal-background');
-const closeModalButton = document.querySelector('.close>img');
+keys.forEach((key) => {
+  key.addEventListener('click', (event) => {
+    switch (event.target.innerText) {
+      case 'Ru':
+      case 'En':
+      case 'Win':
+        if (state.sound) audioRus.play();
+        changeLanguage();
+        break;
+      case 'Tab':
+        if (state.sound) playSpecialSound();
+        setSpace('    ');
+        break;
+      case 'Backspace':
+        if (state.sound) playSpecialSound();
+        backspace();
+        break;
+      case 'Delete':
+        if (state.sound) playSpecialSound();
+        deleteButton();
+        break;
+      case 'CapsLock':
+        if (state.sound) playSpecialSound();
+        changeCase();
+        key.classList.toggle('active');
+        break;
+      case 'Enter':
+        if (state.sound) playSpecialSound();
+        setSpace('\n');
+        break;
+      case 'Shift':
+        if (state.sound) playSpecialSound();
+        changeCase();
+        shift();
+        break;
+      case 'Ctrl':
+      case 'Alt':
+        if (state.sound) playSpecialSound();
+        break;
+      case 'Space':
+        if (state.sound) playSound();
+        setSpace(' ');
+        break;
+      case 'Left':
+        if (state.sound) playSpecialSound();
+        left();
+        break;
+      case 'Right':
+        if (state.sound) playSpecialSound();
+        right();
+        break;
+      case 'Up':
+        if (state.sound) playSpecialSound();
+        up();
+        break;
+      case 'Down':
+        if (state.sound) playSpecialSound();
+        down();
+        break;
+      default:
+        if (state.englishLayout) {
+          if (state.sound) {
+            audioSimple.play();
+          }
+          const span = key.querySelector('.main-key');
+          writeLetter(span.innerText);
+        } else {
+          if (state.sound) {
+            audioSimpleRus.play();
+          }
+          const span = key.querySelector('.main-key-rus');
+          writeLetter(span.innerText);
+        }
 
-modalWindowButton.addEventListener('click', () => {
-  modalWindow.classList.remove('disabled-modal');
-  modalWindowBackground.classList.remove('disabled-modal');
-});
-
-closeModalButton.addEventListener('click', () => {
-  modalWindow.classList.add('disabled-modal');
-  modalWindowBackground.classList.add('disabled-modal');
-});
-
-modalWindowBackground.addEventListener('click', () => {
-  modalWindow.classList.add('disabled-modal');
-  modalWindowBackground.classList.add('disabled-modal');
+        if (state.shift) {
+          changeCase();
+          shift();
+          state.shift = false;
+        }
+        break;
+    }
+  });
 });
