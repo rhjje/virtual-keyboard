@@ -28,11 +28,7 @@ const changeLanguage = () => {
     sideKeysRus[i].classList.toggle('disabled');
     mainKeysRus[i].classList.toggle('disabled');
   }
-  if (state.englishLayout) {
-    state.englishLayout = false;
-  } else {
-    state.englishLayout = true;
-  }
+  state.englishLayout = !state.englishLayout;
 };
 
 const backspace = () => {
@@ -82,11 +78,7 @@ const shift = () => {
   const keysAll = document.querySelectorAll('.key');
   keysAll[42].classList.toggle('active');
   keysAll[54].classList.toggle('active');
-  if (keysAll[42].classList.contains('active') && keysAll[54].classList.contains('active')) {
-    state.shift = true;
-  } else {
-    state.shift = false;
-  }
+  state.shift = !state.shift;
 };
 
 const left = () => {
