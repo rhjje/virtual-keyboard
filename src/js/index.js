@@ -1,8 +1,19 @@
-import './components/keyboard';
-import './script';
-import './realKeyboard';
-import './turnSound';
-import './dark-theme';
-import './speech';
-import './modal';
-import './turnKeyboard';
+import renderTextarea from './modules/render-textarea';
+import renderControlPanel from './modules/render-control-panel';
+import renderKeyboard from './modules/render-keyboard';
+import app from './modules/app';
+import realKeyboard from './modules/real-keyboard';
+import changeTheme from './modules/change-theme';
+import showKeyboard from './modules/show-keyboard';
+import speechRecognition from './modules/speech-recognition';
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderTextarea();
+  renderControlPanel();
+  renderKeyboard();
+  app();
+  realKeyboard();
+  changeTheme();
+  showKeyboard();
+  speechRecognition();
+});

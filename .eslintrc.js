@@ -9,7 +9,8 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-      "comma-dangle": ["error", "never"]
+      "comma-dangle": ["error", "never"],
+      "arrow-body-style": ["error", "always"]
     },
 };
 
