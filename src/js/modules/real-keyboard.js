@@ -11,14 +11,12 @@ const realKeyboard = () => {
     for (let i = 0; i < keysKeyCode.length; i += 1) {
       if (event.keyCode === keysKeyCode[i] && (i === 42 || i === 55 || i === 57)
       && event.location === 1) {
-        keys[i].classList.add('active');
-        break;
+        keys[i].classList.add('key_active');
       } else if (event.keyCode === keysKeyCode[i] && (i === 54 || i === 59 || i === 63)
       && event.location === 2) {
-        keys[i].classList.add('active');
-        break;
+        keys[i].classList.add('key_active');
       } else if (event.keyCode === keysKeyCode[i] && event.location === 0) {
-        keys[i].classList.add('active');
+        keys[i].classList.add('key_active');
       }
     }
   });
@@ -26,7 +24,7 @@ const realKeyboard = () => {
   textarea.addEventListener('keyup', (event) => {
     for (let i = 0; i < keysKeyCode.length; i += 1) {
       if (event.keyCode === keysKeyCode[i]) {
-        keys[i].classList.remove('active');
+        keys[i].classList.remove('key_active');
       }
     }
   });

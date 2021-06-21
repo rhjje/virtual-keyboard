@@ -62,8 +62,7 @@ const app = () => {
   };
 
   const changeCase = () => {
-    const keysAll = document.querySelectorAll('.key');
-    keysAll.forEach((key) => {
+    keys.forEach((key) => {
       if (key.querySelector('.side-key')) {
         const sideKey = key.querySelector('.side-key');
         const mainKey = key.querySelector('.main-key');
@@ -77,9 +76,8 @@ const app = () => {
   };
 
   const shift = () => {
-    const keysAll = document.querySelectorAll('.key');
-    keysAll[42].classList.toggle('active');
-    keysAll[54].classList.toggle('active');
+    keys[42].classList.toggle('active');
+    keys[54].classList.toggle('active');
     state.shift = !state.shift;
   };
 
@@ -240,13 +238,13 @@ const app = () => {
   });
 
   soundButton.addEventListener('click', () => {
-    if (soundButton.classList.contains('off')) {
+    if (soundButton.parentNode.classList.contains('sound_off')) {
       soundButton.src = 'assets/icons/volume.svg';
     } else {
       soundButton.src = 'assets/icons/volume-off.svg';
     }
     state.sound = !state.sound;
-    soundButton.classList.toggle('off');
+    soundButton.parentNode.classList.toggle('sound_off');
   });
 };
 
