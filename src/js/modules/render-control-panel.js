@@ -19,7 +19,7 @@ const renderControlPanel = () => {
       <div class="dark-theme">
         <label class="switch">
           <div class="switch__text">Light</div>
-          <input type="checkbox">
+          <input type="checkbox" class="dark-theme__checkbox">
           <div class="slider round"></div>
           <div class="switch__text">Dark</div>
         </label>
