@@ -1,4 +1,4 @@
-const changeTheme = () => {
+const setSwitches = () => {
   const body = document.querySelector('body');
   const container = document.getElementById('app');
   const textarea = document.querySelector('.textarea');
@@ -6,7 +6,12 @@ const changeTheme = () => {
   const keys = document.querySelectorAll('.key');
   const side = document.querySelectorAll('.side-key');
   const sideRus = document.querySelectorAll('.side-key-rus');
-  const checkbox = document.querySelector('.dark-theme__checkbox');
+  const checkboxKeyboard = document.querySelector('.keyboard-checkbox');
+  const checkboxTheme = document.querySelector('.dark-theme__checkbox');
+
+  checkboxKeyboard.addEventListener('change', () => {
+    keyboard.classList.toggle('keyboard_disabled');
+  });
 
   const switchTheme = () => {
     keys.forEach((key) => {
@@ -27,12 +32,12 @@ const changeTheme = () => {
   };
 
   if (localStorage.getItem('dark-theme')) {
-    checkbox.checked = true;
+    checkboxTheme.checked = true;
     switchTheme();
   }
 
-  checkbox.addEventListener('change', () => {
-    if (checkbox.checked) {
+  checkboxTheme.addEventListener('change', () => {
+    if (checkboxTheme.checked) {
       localStorage.setItem('dark-theme', true);
     } else {
       localStorage.removeItem('dark-theme');
@@ -41,4 +46,4 @@ const changeTheme = () => {
   });
 };
 
-export default changeTheme;
+export default setSwitches;

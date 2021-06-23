@@ -3,8 +3,7 @@ import renderControlPanel from './modules/render-control-panel';
 import renderKeyboard from './modules/render-keyboard';
 import app from './modules/app';
 import realKeyboard from './modules/real-keyboard';
-import changeTheme from './modules/change-theme';
-import showKeyboard from './modules/show-keyboard';
+import setSwitches from './modules/set-switches';
 import speechRecognition from './modules/speech-recognition';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderKeyboard();
   app();
   realKeyboard();
-  changeTheme();
-  showKeyboard();
+  setSwitches();
   speechRecognition();
 });

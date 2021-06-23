@@ -6,7 +6,7 @@ const renderControlPanel = () => {
         <div class="switch-keyboard">
           <label class="switch">
             <div class="switch__text">Off</div>
-            <input type="checkbox">
+            <input type="checkbox" class="keyboard-checkbox">
             <div class="slider round"></div>
             <div class="switch__text">On</div>
           </label>

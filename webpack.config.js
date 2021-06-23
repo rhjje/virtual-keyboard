@@ -7,7 +7,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 module.exports = {
-  devtool: 'inline-source-map',
   entry: {
     main: [path.resolve(__dirname, './src/js/index.js'), './src/sass/styles.scss']
   },

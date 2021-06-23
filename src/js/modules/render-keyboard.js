@@ -48,7 +48,7 @@ const renderKeyboard = () => {
 
   const createKeyboard = () => {
     const keyboard = document.createElement('div');
-    keyboard.classList.add('keyboard', 'keyboard-off');
+    keyboard.classList.add('keyboard', 'keyboard_disabled');
     for (let i = 0; i < sideKeys.length; i += 1) {
       const row = document.createElement('div');
       switch (i) {
