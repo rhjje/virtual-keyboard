@@ -10,7 +10,7 @@ module.exports = {
     },
     "rules": {
       "comma-dangle": ["error", "never"],
-      "arrow-body-style": ["error", "always"]
+      "arrow-body-style": ["error", "as-needed"]
     },
 };
 

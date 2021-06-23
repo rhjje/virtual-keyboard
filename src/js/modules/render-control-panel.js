@@ -13,7 +13,7 @@ const renderControlPanel = () => {
         </div>
         <div class="toggle-sound">
           <div class="sound"><img src="assets/icons/volume.svg"></div>
-          <div class="microphone"><img class="off" src="assets/icons/microphone-off.svg"></div>
+          <div class="microphone microphone_disabled"><img src="assets/icons/microphone-off.svg"></div>
         </div>
       </div>
       <div class="dark-theme">

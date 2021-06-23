@@ -29,22 +29,18 @@ const renderKeyboard = () => {
     [null, 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', null]
   ];
 
-  const createMainKey = (main, side, mainRus, sideRus) => {
-    return `
+  const createMainKey = (main, side, mainRus, sideRus) => `
     <div class="key">
       <span class="side-key">${side}</span>
       <span class="main-key">${main}</span>
       <span class="side-key-rus disabled">${sideRus}</span>
       <span class="main-key-rus disabled">${mainRus}</span>
     </div>`;
-  };
 
-  const createSideKey = (content) => {
-    return `
-      <div class="key ${content.toLowerCase()}">
-        <span>${content}</span>
-      </div>`;
-  };
+  const createSideKey = (content) => `
+    <div class="key ${content.toLowerCase()}">
+      <span>${content}</span>
+    </div>`;
 
   const createKeyboard = () => {
     const keyboard = document.createElement('div');

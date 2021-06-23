@@ -1,39 +1,43 @@
 const speechRecognition = () => {
   const textarea = document.querySelector('.textarea');
   const language = document.querySelector('.language');
-  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const button = document.querySelector('.microphone');
 
-  const rec = new SpeechRecognition();
-  rec.interimResults = true;
-  rec.continuous = true;
-  rec.lang = 'en-gb';
+  try {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SpeechRecognition();
+    rec.interimResults = true;
+    rec.continuous = true;
+    rec.lang = 'en-gb';
 
-  rec.addEventListener('result', (e) => {
-    const text = Array.from(e.results)
-      .map((result) => result[0])
-      .map((result) => result.transcript)
-      .join('');
-    textarea.value = text;
-  });
+    rec.addEventListener('result', (event) => {
+      const text = Array.from(event.results)
+        .map((res) => res[0])
+        .map((res) => res.transcript)
+        .join('');
+      textarea.value = text;
+    });
 
-  const microphoneButton = document.querySelector('.microphone > img');
-  microphoneButton.addEventListener('click', () => {
-    if (language.innerText === 'En') {
-      rec.lang = 'en-gb';
-    } else {
-      rec.lang = 'ru';
-    }
+    button.addEventListener('click', () => {
+      if (language.innerText === 'En') {
+        rec.lang = 'en-gb';
+      } else {
+        rec.lang = 'ru';
+      }
 
-    if (microphoneButton.classList.contains('off')) {
-      microphoneButton.src = 'assets/icons/microphone.svg';
-      microphoneButton.classList.remove('off');
-      rec.start();
-    } else {
-      rec.stop();
-      microphoneButton.src = 'assets/icons/microphone-off.svg';
-      microphoneButton.classList.add('off');
-    }
-  });
+      if (button.classList.contains('microphone_disabled')) {
+        button.firstChild.src = 'assets/icons/microphone.svg';
+        button.classList.remove('microphone_disabled');
+        rec.start();
+      } else {
+        rec.stop();
+        button.firstChild.src = 'assets/icons/microphone-off.svg';
+        button.classList.add('microphone_disabled');
+      }
+    });
+  } catch (error) {
+    button.style.display = 'none';
+  }
 };
 
 export default speechRecognition;
