@@ -4,10 +4,12 @@
   border: 5px solid grey;
   border-radius: 10px;
   transition: 0.5s;
+  opacity: 1;
 }
 
 .keyboard_disabled {
   transform: translateY(400px);
+  opacity: 0;
   transition: 0.5s;
 }
 
