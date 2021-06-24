@@ -76,8 +76,8 @@ const app = () => {
   };
 
   const shift = () => {
-    keys[42].classList.toggle('active');
-    keys[54].classList.toggle('active');
+    keys[42].classList.toggle('key_active');
+    keys[54].classList.toggle('key_active');
     state.shift = !state.shift;
   };
 
@@ -177,7 +177,7 @@ const app = () => {
         case 'CapsLock':
           if (state.sound) playSpecialSound();
           changeCase();
-          key.classList.toggle('active');
+          key.classList.toggle('key_active');
           break;
         case 'Enter':
           if (state.sound) playSpecialSound();
